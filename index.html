@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blastocyst AI Grader</title>
+    <meta
+      name="description"
+      content="Upload a human blastocyst image and generate an AI-assisted grading report with research-backed outcome context."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <div class="atmosphere" aria-hidden="true"></div>
+    <main class="container">
+      <header class="hero card">
+        <p class="eyebrow">AI-Powered Embryology Tool</p>
+        <h1>Blastocyst Image Grader + Report</h1>
+        <p class="subtitle">
+          Upload a blastocyst image to predict expansion/ICM/TE grade and generate
+          an outcome-oriented report using published research cohorts.
+        </p>
+      </header>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Upload Image</h2>
+          <form id="grader-form" class="grader-form">
+            <label for="blastocyst-image">Blastocyst image</label>
+            <input
+              id="blastocyst-image"
+              name="file"
+              type="file"
+              accept="image/*"
+              required
+            />
+
+            <figure class="preview">
+              <img id="preview-image" alt="Selected embryo preview" />
+              <figcaption id="preview-caption" class="muted">
+                No image selected.
+              </figcaption>
+            </figure>
+
+            <label for="cohort">Evidence cohort</label>
+            <select id="cohort" name="cohort">
+              <option value="mixed">Mixed cohort (single blastocyst transfer)</option>
+              <option value="euploid">Euploid-only cohort (NC-FET)</option>
+              <option value="frozen_set">Large FET cohort (single transfer)</option>
+            </select>
+
+            <label for="age">Maternal age (optional)</label>
+            <input
+              id="age"
+              name="age"
+              type="number"
+              min="18"
+              max="55"
+              placeholder="e.g., 35"
+            />
+
+            <button type="submit">Run AI Grading</button>
+          </form>
+        </article>
+
+        <article class="card" id="result-panel" aria-live="polite">
+          <h2>Generated Report</h2>
+          <div id="report">
+            <p class="muted">
+              Upload an image and click <strong>Run AI Grading</strong> to
+              generate a report.
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>Sources</h2>
+        <ol class="sources">
+          <li>
+            <a
+              href="https://www.asrm.org/asrm-academy/asrm-academy-on-the-go/embryo-data-grading--evaluation/grading-scales/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >ASRM Grading Scales (Gardner criteria summary)</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10694400/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Zou et al., 2023, Human Reproduction (open access)</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8995226/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Zhang et al., 2022, Journal of Assisted Reproduction and Genetics
+              (open access)</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8589796/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Ai et al., 2021, Reproductive Biology and Endocrinology (open
+              access)</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12194673/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >2025 network meta-analysis of blastocyst morphology in FET
+              cycles</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://doi.org/10.1038/s41597-022-01848-y"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Kragh et al., 2022 annotated human blastocyst AI dataset paper</a
+            >
+          </li>
+        </ol>
+        <p class="footnote">
+          Educational decision-support only. Not a replacement for embryologist
+          judgement or local clinic protocol.
+        </p>
+      </section>
+    </main>
+    <script src="./src/app.js"></script>
+  </body>
+</html>

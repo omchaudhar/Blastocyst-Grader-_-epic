@@ -1,0 +1,11 @@
+fastapi>=0.115
+numpy>=1.26
+opencv-python>=4.10
+pandas>=2.2
+pillow>=10.4
+python-multipart>=0.0.10
+requests>=2.32
+streamlit>=1.39
+torch>=2.4
+torchvision>=0.19
+uvicorn[standard]>=0.30
