@@ -5,13 +5,41 @@ criteria (Gardner framework) and outcome context from open research cohorts.
 
 ## Run locally
 
-1. Start the local server:
+1. Start the lightweight local server:
 
 ```text
 python3 server.py
 ```
 
 2. Open in browser: `http://127.0.0.1:8000`
+
+Shortcut:
+
+```bash
+make run-local
+```
+
+## Production API (Deployable)
+
+Production entrypoint:
+
+```text
+uvicorn api:app --host 0.0.0.0 --port 8000
+```
+
+Shortcut:
+
+```bash
+make run-api
+```
+
+The FastAPI service exposes:
+
+- `GET /api/health`
+- `GET /api/sources`
+- `POST /api/grade-image` (JSON with base64/data URL image)
+- `POST /api/grade-upload` (multipart form upload)
+- `POST /api/report-from-grade` (manual override report)
 
 ## What it includes
 
@@ -36,6 +64,45 @@ python3 server.py
 - 2025 network meta-analysis (J Clin Med, open access)
 - Kragh et al., 2022 blastocyst AI dataset paper (Sci Data)
 
+## Deploy to Practical Use
+
+### Option A: Docker (recommended)
+
+```bash
+docker build -t blastocyst-ai-grader .
+docker run -p 8000:8000 \
+  -e ALLOWED_ORIGINS="https://yourdomain.com" \
+  -e BLASTOCYST_CHECKPOINT="/app/models/best_model.pt" \
+  blastocyst-ai-grader
+```
+
+Shortcuts:
+
+```bash
+make docker-build
+make docker-run
+```
+
+Open: `http://localhost:8000`
+
+### Option B: Render
+
+1. Push this folder to GitHub.
+2. Create a new Render Web Service from the repo.
+3. Render will detect `render.yaml` + `Dockerfile`.
+4. Set environment variables:
+   - `ALLOWED_ORIGINS=https://yourdomain.com`
+   - `BLASTOCYST_CHECKPOINT=/app/models/best_model.pt` (optional)
+5. Deploy and verify `https://<your-service>/api/health`.
+
+### Option C: Railway
+
+1. Create a new Railway project from your repo.
+2. Railway will use `railway.json` start command.
+3. Set environment variables:
+   - `ALLOWED_ORIGINS=https://yourdomain.com`
+   - `BLASTOCYST_CHECKPOINT=/app/models/best_model.pt` (optional)
+
 ## Notes
 
 - Intended for educational and decision-support context.
@@ -47,3 +114,4 @@ export BLASTOCYST_CHECKPOINT=/absolute/path/to/best_model.pt
 ```
 
 - Optional model-training dependencies are listed in `requirements.txt`.
+- `ALLOWED_ORIGINS` should be restricted in production (avoid `*`).
